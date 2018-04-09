@@ -1,31 +1,39 @@
-function httpGet(theUrl)
+function send_challenge(theUrl, data)
 {
+    var formData = new FormData();
+    formData.append("challenge", data);
+    console.log(formData);
     var oReq = new XMLHttpRequest();
-    oReq.open("GET", theUrl);
-    //oReq.setRequestHeader(header, value);
-    oReq.send();
-    
+    oReq.open("POST", theUrl, true);
+    oReq.setRequestHeader("Content-Type","multipart/form-data");
+
+
+    oReq.send(formData);
 }
 
-window.document.onload = function(e){
-    console.log("document.onload", e, Date.now());
-    setTimeout(function(){ alert("start challenge"); httpGet("/send_challenge")}, 1000);
-
+function do_unlock () {
+  //get challenge file
+  var challenge_file = getChallenge();
+  send_challenge("/send_challenge", challenge_file);
 }
 
-window.onload = function(e){
-    console.log("window.onload", e, Date.now());
-    setTimeout(function(){ alert("start challenge"); httpGet("/send_challenge")}, 1000);
+function getChallenge () {
+  var randomData = [];
+// while randomData.length < 308
+
+    var bytes = new Uint8Array(4);
+    for (var i=4; i--; ) {
+      let longRandomNumber = Math.floor(Math.random() * 1000000000);
+        bytes[i] = longRandomNumber & (255);
+        longRandomNumber = longRandomNumber >> 8
+    }
+    randomData.push(bytes);
+
+  var blob = new Blob(randomData);
+  blob["lastModifiedDate"] = "";
+  blob["name"] = "challenge.bin";
+  var fakeF = blob;
+  console.log(fakeF);
+  return fakeF;
 }
 
-window.onafterprint = function(e){
-  console.log("window.onafterprint", e, Date.now());
-}
-
-window.onmessage = function(e) {
-  console.log("window.onmessage", e, Date.now());
-}
-
-window.onpageshow = function(e) {
-  console.log("window.onpageshow", e, Date.now());
-}

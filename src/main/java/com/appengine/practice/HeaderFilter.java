@@ -1,9 +1,9 @@
 package com.appengine.practice;
 
+import com.appengine.practice.VerifyIapRequestHeader;
+import java.util.Enumeration;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import com.appengine.practice.VerifyIapRequestHeader;
 
 
 public class HeaderFilter implements Filter  {
@@ -33,7 +33,7 @@ public class HeaderFilter implements Filter  {
                 String paramValue = httpServleRequest.getHeader(paramName);
                 System.out.print(paramValue + ",");
                 if ( paramName.equals("X-Goog-IAP-JWT-Assertion")) {
-                  
+
                   jwt = paramValue;
                 }
             }
@@ -41,7 +41,7 @@ public class HeaderFilter implements Filter  {
         }
         else
             System.out.println("no value.");
-        
+
         ///projects/221530965330/apps/express-1122
         long projectNum = 221530965330L;
         String projectID = "express-1122";
@@ -54,8 +54,10 @@ public class HeaderFilter implements Filter  {
           e.printStackTrace();
         }
         System.out.println("Verify Result: " + VerifyResult);
-        // 把请求传回过滤链
+
+
         chain.doFilter(request,response);
+
     }
     @Override
     public void destroy( ){
