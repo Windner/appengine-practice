@@ -41,7 +41,7 @@ public class Send_challengeEngine extends HttpServlet {
                    "<h1 align = \"center\">" + title + "</h1>\n" +
                    "<ul>\n" +
                       "  <li><b>Challenge</b>: "
-                      + req.getPart("challenge").toString() + "\n" +
+                      + istream.toString() + "\n" +
                    "</ul>\n" +
                 "</body> \n" +
              "</html>"
