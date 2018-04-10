@@ -44,7 +44,12 @@ public class HelloAppEngine extends HttpServlet {
     response.getWriter().println("</table>\n</body></html>");
 
   }
-
+  
+  
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response)  throws IOException {
+    doGet(request, response);
+  }
   public static String getInfo() {
     return "Version: " + System.getProperty("java.version")
           + " OS: " + System.getProperty("os.name")
