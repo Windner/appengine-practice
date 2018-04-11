@@ -1,3 +1,6 @@
+/*
+ * HTTP request for send challenge file
+ */
 function send_challenge(theUrl, data)
 {
     var formData = new FormData();
@@ -7,30 +10,45 @@ function send_challenge(theUrl, data)
     console.log(formData);
     var oReq = new XMLHttpRequest();
 
-
-
     oReq.open("POST", theUrl, true);
-
     oReq.setRequestHeader("Content-Type","multipart/form-data");
     oReq.responseType = "arraybuffer";
     oReq.onreadystatechange = function() {
-    if (this.readyState == 4 && !done) {
+    if (this.readyState == 4 ) {
       console.log(this.response);
-      //callback(!!(this.responseXML && this.responseXML.title && this.responseXML.title == "&&<"));
+      //parse UnlockToken
+      let unlockToken = this.response;
+      //sendToken to device
+      sendToken2Device(unlockToken);
     }
   }
     oReq.send(formData);
 }
 
+/*
+ * Call WebUSB API to send response.bin to device
+ */
+function sendToken2Device (unlockToken) {
+
+}
+
+/*
+ * Unlock button action
+ */
 function do_unlock () {
   //get challenge file
   var challenge_file = getChallenge();
   send_challenge("/send_challenge", challenge_file);
 }
 
+/*
+ * Call WebUSB API to get challenge.bin from device
+ */
 function getChallenge () {
+
+  //Fake data
   var randomData = [];
-// while randomData.length < 308
+
 
     var bytes = new Uint8Array(4);
     for (var i=4; i--; ) {

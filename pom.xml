@@ -47,7 +47,7 @@
       <artifactId>nimbus-jose-jwt</artifactId>
       <version>5.7</version>
     </dependency>
- 
+
 
 
 
@@ -95,6 +95,11 @@
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-language</artifactId>
       <version>1.15.0</version>
+    </dependency>
+     <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>3.4.0</version>
     </dependency>
   </dependencies>
 
@@ -195,6 +200,22 @@
                 </requirePluginVersions>
               </rules>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.xolstice.maven.plugins</groupId>
+        <artifactId>protobuf-maven-plugin</artifactId>
+        <version>0.5.1</version>
+          <configuration>
+            <outputDirectory>${project.basedir}/src/main/java/proto</outputDirectory>
+          </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>test-compile</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
