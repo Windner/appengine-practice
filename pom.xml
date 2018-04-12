@@ -208,7 +208,8 @@
         <artifactId>protobuf-maven-plugin</artifactId>
         <version>0.5.1</version>
           <configuration>
-            <outputDirectory>${project.basedir}/src/main/java/proto</outputDirectory>
+            <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
+            <clearOutputDirectory>false</clearOutputDirectory>
           </configuration>
         <executions>
           <execution>
